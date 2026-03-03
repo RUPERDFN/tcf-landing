@@ -1,0 +1,83 @@
+Transforma la landing de TheCookFlow al estilo "tiza sobre pizarra negra".
+
+CAMBIOS EN client/src/index.css:
+
+1. IMPORTAR FUENTES CHALK:
+Reemplaza las fuentes actuales por:
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Patrick+Hand&family=Fredoka+One&display=swap');
+
+2. VARIABLES DE COLOR (reemplazar las actuales):
+:root {
+  --color-background: #1a1a1a;
+  --color-background-light: #2d2d2d;
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.7);
+  --color-accent: #5db9a8;
+  --color-accent-hover: #4ca897;
+  --color-highlight: #f5d742;
+  --color-tomato: #e74c3c;
+  --color-leaf: #7cb342;
+}
+
+3. BODY BASE:
+body {
+  font-family: 'Patrick Hand', cursive;
+  background-color: #1a1a1a;
+  background-image: url('https://raw.githubusercontent.com/RUPERDFN/tcf-brand-master/main/fondos/bg.png');
+  background-size: cover;
+  background-attachment: fixed;
+  color: #ffffff;
+  min-height: 100vh;
+}
+
+4. EFECTO TIZA PARA TÍTULOS:
+h1, h2, h3, h4 {
+  font-family: 'Caveat', cursive;
+  text-shadow: 
+    0 0 1px rgba(255,255,255,0.5),
+    0 0 2px rgba(255,255,255,0.3),
+    1px 1px 2px rgba(0,0,0,0.5);
+}
+
+5. TÍTULOS DESTACADOS (amarillos):
+.chalk-title {
+  color: #f5d742;
+  text-shadow: 
+    0 0 2px rgba(245,215,66,0.5),
+    1px 1px 2px rgba(0,0,0,0.5);
+}
+
+6. BOTÓN ESTILO PIZARRA:
+.btn-chalk {
+  font-family: 'Fredoka One', cursive;
+  background: linear-gradient(135deg, #5db9a8 0%, #4ca897 100%);
+  color: white;
+  padding: 16px 40px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(93, 185, 168, 0.4);
+}
+
+.btn-chalk:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(93, 185, 168, 0.6);
+}
+
+7. TARJETAS ESTILO TIZA:
+.card-chalk {
+  background: rgba(45, 45, 45, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.card-chalk:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-5px);
+}
+
+Elimina los estilos de fondo blanco/gris y asegúrate de que todo el fondo sea oscuro estilo pizarra.

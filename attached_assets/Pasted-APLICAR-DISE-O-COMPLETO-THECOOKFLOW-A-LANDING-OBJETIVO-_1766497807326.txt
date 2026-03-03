@@ -1,0 +1,511 @@
+APLICAR DISEÑO COMPLETO THECOOKFLOW A LANDING
+
+OBJETIVO: Crear landing page con el diseño real de TheCookFlow (fondo pizarra, logo manzana, botones verdes).
+
+PASO 1: COPIAR ASSETS DESDE REPO PÚBLICO
+
+Ejecutar en Shell:
+
+# Limpiar
+rm -rf temp-brand
+
+# Crear estructura
+mkdir -p public/bg
+mkdir -p public/logos
+mkdir -p public/icons
+
+# Clonar repo público
+git clone https://github.com/RUPERDFN/tcf-brand-master.git temp-brand
+
+# Copiar fondos
+cp temp-brand/fondos/bg.png public/bg/
+cp temp-brand/fondos/textura-grunge-oscura.jpg public/bg/
+
+# Copiar logos
+cp temp-brand/logos/logo.PNG public/logos/logo.png
+cp temp-brand/logos/chef.png public/logos/
+cp temp-brand/logos/menu.png public/logos/
+cp temp-brand/logos/lista.png public/logos/
+cp temp-brand/logos/recetas.png public/logos/
+
+# Copiar iconos
+cp temp-brand/logos/tomate.png public/icons/
+cp temp-brand/logos/zanahoria.png public/icons/
+cp temp-brand/logos/pimiento.png public/icons/
+cp temp-brand/logos/limon.png public/icons/
+cp temp-brand/logos/hojas.png public/icons/
+
+# Limpiar
+rm -rf temp-brand
+
+# Verificar
+ls -la public/bg/
+ls -la public/logos/
+ls -la public/icons/
+
+PASO 2: VERIFICAR/CREAR package.json
+
+{
+  "name": "tcf-landing",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.47",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "tailwindcss": "^3.4.1",
+    "postcss": "^8.4.33",
+    "autoprefixer": "^10.4.16"
+  }
+}
+
+PASO 3: CREAR vite.config.ts
+
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    host: '0.0.0.0',
+    port: 5173
+  },
+  publicDir: 'public'
+});
+
+PASO 4: CREAR tsconfig.json
+
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+
+PASO 5: CREAR tsconfig.node.json
+
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["vite.config.ts"]
+}
+
+PASO 6: CREAR tailwind.config.js
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        accent: {
+          green: '#5DB9A8',
+          red: '#E74C3C',
+        },
+      },
+      fontFamily: {
+        chalk: ['Permanent Marker', 'cursive'],
+        body: ['Nunito', 'Arial', 'sans-serif'],
+      },
+    },
+  },
+  plugins: [],
+}
+
+PASO 7: CREAR postcss.config.js
+
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+
+PASO 8: CREAR index.html
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TheCookFlow - Planificación de Menús con IA</title>
+  <meta name="description" content="Genera menús semanales personalizados con IA. Lista de compra automática. Ahorra tiempo y dinero en planificación de comidas.">
+  <meta property="og:title" content="TheCookFlow - Tu Chef Personal con IA">
+  <meta property="og:description" content="Menús semanales + lista de compra en 2 minutos">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thecookflow.com">
+  <link rel="icon" type="image/png" href="/logos/logo.png">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
+
+PASO 9: CREAR src/index.css
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&family=Permanent+Marker&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply font-body text-white;
+    background: #1a1a1a;
+    background-image: url('/bg/bg.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    min-height: 100vh;
+  }
+
+  @media (max-width: 768px) {
+    body {
+      background-attachment: scroll;
+    }
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-chalk text-white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  h1 {
+    @apply text-5xl md:text-6xl;
+  }
+
+  h2 {
+    @apply text-4xl md:text-5xl;
+  }
+
+  h3 {
+    @apply text-3xl md:text-4xl;
+  }
+}
+
+@layer components {
+  .btn-siguiente {
+    @apply relative px-12 py-4 text-white font-bold text-xl;
+    background: linear-gradient(135deg, #5DB9A8 0%, #4db8a8 100%);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(93, 185, 168, 0.4);
+  }
+
+  .btn-siguiente:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(93, 185, 168, 0.6);
+  }
+
+  .btn-outline {
+    @apply px-8 py-4 text-white font-bold text-lg;
+    @apply border-2 border-white rounded-full;
+    @apply bg-transparent hover:bg-white hover:text-black;
+    @apply transition-all duration-300;
+  }
+
+  .card-dark {
+    @apply bg-black/60 backdrop-blur-md p-8 rounded-3xl;
+    @apply border border-white/10 shadow-2xl;
+  }
+
+  .section-container {
+    @apply max-w-6xl mx-auto px-4;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+PASO 10: CREAR src/main.tsx
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Landing from './Landing';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <Landing />
+  </React.StrictMode>
+);
+
+PASO 11: CREAR src/Landing.tsx
+
+export default function Landing() {
+  const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.thecookflow.com';
+
+  return (
+    <div className="min-h-screen">
+      {/* Header */}
+      <header className="py-6 backdrop-blur-sm bg-black/30 border-b border-white/10">
+        <div className="section-container flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <img src="/logos/logo.png" alt="TheCookFlow" className="w-12 h-12" />
+            <h1 className="text-2xl font-chalk">The CookFlow</h1>
+          </div>
+          <a 
+            href={`${APP_URL}/login`}
+            className="text-white hover:text-accent-green transition-colors font-semibold"
+          >
+            Entrar
+          </a>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <main>
+        <section className="py-20 px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            {/* Logo grande */}
+            <div className="mb-12 fade-in">
+              <img 
+                src="/logos/logo.png" 
+                alt="TheCookFlow" 
+                className="w-32 h-32 mx-auto mb-6 drop-shadow-2xl"
+              />
+              <h2 className="text-6xl md:text-7xl font-chalk mb-6">
+                The CookFlow
+              </h2>
+            </div>
+
+            {/* Título principal */}
+            <div className="fade-in mb-12" style={{animationDelay: '0.2s'}}>
+              <h3 className="text-4xl md:text-5xl font-chalk mb-6">
+                ¿Qué quieres comer esta semana?
+              </h3>
+              <p className="text-xl md:text-2xl text-gray-300 font-body max-w-3xl mx-auto">
+                Tu chef personal con IA. Menús semanales personalizados y lista de compra automática en 2 minutos.
+              </p>
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 fade-in" style={{animationDelay: '0.4s'}}>
+              <a href={`${APP_URL}/register`}>
+                <button className="btn-siguiente w-full sm:w-auto">
+                  Empezar gratis
+                </button>
+              </a>
+              <a href={`${APP_URL}/login`}>
+                <button className="btn-outline w-full sm:w-auto">
+                  Ya tengo cuenta
+                </button>
+              </a>
+            </div>
+
+            {/* Iconos decorativos */}
+            <div className="flex justify-center gap-8 fade-in" style={{animationDelay: '0.6s'}}>
+              <img src="/icons/tomate.png" alt="Tomate" className="w-16 h-16 hover:scale-110 transition-transform drop-shadow-lg" />
+              <img src="/icons/zanahoria.png" alt="Zanahoria" className="w-16 h-16 hover:scale-110 transition-transform drop-shadow-lg" />
+              <img src="/icons/pimiento.png" alt="Pimiento" className="w-16 h-16 hover:scale-110 transition-transform drop-shadow-lg" />
+              <img src="/icons/limon.png" alt="Limón" className="w-16 h-16 hover:scale-110 transition-transform drop-shadow-lg" />
+            </div>
+          </div>
+        </section>
+
+        {/* Cómo funciona */}
+        <section className="py-20 px-4 fade-in">
+          <div className="section-container">
+            <h3 className="text-5xl font-chalk text-center mb-16">
+              ¿Cómo Funciona?
+            </h3>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="card-dark text-center">
+                <img src="/logos/menu.png" alt="Menú" className="w-20 h-20 mx-auto mb-4" />
+                <h4 className="text-2xl font-chalk mb-3">1. Responde 8 preguntas</h4>
+                <p className="text-gray-300">
+                  Presupuesto, alergias, gustos y preferencias alimentarias
+                </p>
+              </div>
+              <div className="card-dark text-center">
+                <img src="/logos/chef.png" alt="Chef IA" className="w-20 h-20 mx-auto mb-4" />
+                <h4 className="text-2xl font-chalk mb-3">2. IA genera tu menú</h4>
+                <p className="text-gray-300">
+                  Recetas personalizadas para toda la semana
+                </p>
+              </div>
+              <div className="card-dark text-center">
+                <img src="/logos/lista.png" alt="Lista" className="w-20 h-20 mx-auto mb-4" />
+                <h4 className="text-2xl font-chalk mb-3">3. Descarga lista</h4>
+                <p className="text-gray-300">
+                  Lista de compra automática optimizada por categorías
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Beneficios */}
+        <section className="py-20 px-4">
+          <div className="section-container">
+            <h3 className="text-5xl font-chalk text-center mb-16">
+              Beneficios
+            </h3>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="card-dark">
+                <div className="text-4xl mb-4">⏱️</div>
+                <h4 className="text-2xl font-chalk mb-3">Ahorra 40% tiempo</h4>
+                <p className="text-gray-300">
+                  No más horas pensando qué cocinar cada día
+                </p>
+              </div>
+              <div className="card-dark">
+                <div className="text-4xl mb-4">💰</div>
+                <h4 className="text-2xl font-chalk mb-3">Reduce gastos</h4>
+                <p className="text-gray-300">
+                  Compra solo lo necesario, evita desperdicios
+                </p>
+              </div>
+              <div className="card-dark">
+                <div className="text-4xl mb-4">🥗</div>
+                <h4 className="text-2xl font-chalk mb-3">Menús adaptados</h4>
+                <p className="text-gray-300">
+                  Respeta alergias y preferencias alimentarias
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Final */}
+        <section className="py-20 px-4">
+          <div className="max-w-3xl mx-auto text-center card-dark">
+            <h3 className="text-4xl md:text-5xl font-chalk mb-6">
+              Empieza hoy gratis
+            </h3>
+            <p className="text-xl text-gray-300 mb-8">
+              Más de 10.000 comidas planificadas. Sin tarjeta de crédito.
+            </p>
+            <a href={`${APP_URL}/register`}>
+              <button className="btn-siguiente">
+                Crear mi primer menú
+              </button>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer className="py-8 px-4 backdrop-blur-sm bg-black/30 border-t border-white/10">
+        <div className="section-container">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-3">
+              <img src="/logos/logo.png" alt="TheCookFlow" className="w-10 h-10" />
+              <span className="font-chalk text-xl">The CookFlow</span>
+            </div>
+            <p className="text-gray-400">
+              © 2025 TheCookFlow. Planificación inteligente de menús.
+            </p>
+            <div className="flex gap-6 text-sm text-gray-400">
+              <a href="#" className="hover:text-white transition-colors">Privacidad</a>
+              <a href="#" className="hover:text-white transition-colors">Términos</a>
+              <a href="#" className="hover:text-white transition-colors">Contacto</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+PASO 12: CREAR .env
+
+VITE_APP_URL=https://app.thecookflow.com
+
+PASO 13: CREAR .gitignore
+
+node_modules/
+dist/
+.env
+.env.local
+*.log
+.DS_Store
+
+PASO 14: CREAR .replit
+
+run = "npm run dev"
+entrypoint = "src/main.tsx"
+
+[nix]
+channel = "stable-23_11"
+
+[deployment]
+run = ["npm", "run", "build"]
+
+PASO 15: INSTALAR DEPENDENCIAS Y VERIFICAR
+
+npm install
+
+# Debe instalar sin errores
+
+npm run dev
+
+# Debe arrancar en puerto 5173
+
+VERIFICACIÓN FINAL:
+1. Assets copiados en public/
+2. Fondo de pizarra visible (bg.png)
+3. Logo de manzana roja en header y hero
+4. Botones verdes funcionando
+5. Iconos de comida visibles
+6. 3 secciones: Cómo Funciona, Beneficios, CTA Final
+7. Footer completo
+8. Links apuntan a VITE_APP_URL
+
+Si todo funciona:
+
+git add .
+git commit -m "feat: landing page with complete chalkboard design"
+git push origin main
+
+Confirma cuando esté funcionando.

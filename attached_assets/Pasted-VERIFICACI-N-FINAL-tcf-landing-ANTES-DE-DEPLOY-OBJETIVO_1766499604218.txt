@@ -1,0 +1,228 @@
+<<<<<<< Updated upstream
+VERIFICACIÓN FINAL tcf-landing ANTES DE DEPLOY
+
+OBJETIVO: Asegurar que tcf-landing está listo para producción.
+
+PASO 1: VERIFICAR package.json
+
+Abrir package.json y confirmar scripts:
+
+"scripts": {
+  "dev": "vite --host 0.0.0.0",
+  "build": "vite build",
+  "preview": "vite preview"
+}
+
+PASO 2: VERIFICAR src/Landing.tsx
+
+Abrir src/Landing.tsx
+
+Confirmar que tenga:
+const GITHUB_BASE = 'https://raw.githubusercontent.com/RUPERDFN/tcf-brand-master/main';
+const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.thecookflow.com';
+
+Todas las imágenes deben usar:
+<img src={`${GITHUB_BASE}/logos/logo.PNG`} ... />
+
+Todos los links deben usar:
+<a href={`${APP_URL}/register`}>
+
+PASO 3: VERIFICAR VARIABLES DE ENTORNO
+
+Cat .env
+
+Debe contener:
+VITE_APP_URL=https://app.thecookflow.com
+
+PASO 4: VERIFICAR SECCIONES DE LA LANDING
+
+Abrir src/Landing.tsx y verificar que existan:
+✅ Header (con logo + link "Entrar")
+✅ Hero (logo grande + título + 2 CTAs)
+✅ Iconos decorativos (tomate, zanahoria, pimiento, limón)
+✅ Sección "¿Cómo Funciona?" (3 cards)
+✅ Sección "Beneficios" (3 cards)
+✅ CTA Final
+✅ Footer
+
+PASO 5: BUILD DE PRODUCCIÓN
+
+Ejecutar:
+npm run build
+
+Debe completar sin errores.
+
+Verificar:
+ls -la dist/
+
+Debe contener index.html y assets/
+
+PASO 6: PREVIEW
+
+Ejecutar:
+npm run preview
+
+Visitar la URL.
+Verificar:
+✅ Fondo de pizarra
+✅ Logo de manzana
+✅ 3 secciones completas
+✅ Botones verdes
+✅ Footer completo
+✅ Links funcionan (aunque apunten a app no deployed aún)
+
+PASO 7: VERIFICAR SEO
+
+Abrir index.html
+
+Confirmar que tenga:
+<title>TheCookFlow - Planificación de Menús con IA</title>
+<meta name="description" content="...">
+<meta property="og:title" ...>
+<meta property="og:description" ...>
+
+PASO 8: VERIFICAR .gitignore
+
+Cat .gitignore
+
+Debe incluir:
+node_modules/
+dist/
+.env
+.env.local
+*.log
+.DS_Store
+
+PASO 9: COMMIT FINAL
+
+git status
+git add .
+git commit -m "chore: final verification before production deploy"
+git push origin main
+
+PASO 10: VERIFICAR EN GITHUB
+
+Ir a: https://github.com/RUPERDFN/tcf-landing
+
+Confirmar último commit.
+
+RESULTADO FINAL:
+✅ Build exitoso
+✅ Preview muestra diseño completo
+✅ SEO configurado
+✅ Pusheado a GitHub
+=======
+VERIFICACIÓN FINAL tcf-landing ANTES DE DEPLOY
+
+OBJETIVO: Asegurar que tcf-landing está listo para producción.
+
+PASO 1: VERIFICAR package.json
+
+Abrir package.json y confirmar scripts:
+
+"scripts": {
+  "dev": "vite --host 0.0.0.0",
+  "build": "vite build",
+  "preview": "vite preview"
+}
+
+PASO 2: VERIFICAR src/Landing.tsx
+
+Abrir src/Landing.tsx
+
+Confirmar que tenga:
+const GITHUB_BASE = 'https://raw.githubusercontent.com/RUPERDFN/tcf-brand-master/main';
+const APP_URL = import.meta.env.VITE_APP_URL || 'https://app.thecookflow.com';
+
+Todas las imágenes deben usar:
+<img src={`${GITHUB_BASE}/logos/logo.PNG`} ... />
+
+Todos los links deben usar:
+<a href={`${APP_URL}/register`}>
+
+PASO 3: VERIFICAR VARIABLES DE ENTORNO
+
+Cat .env
+
+Debe contener:
+VITE_APP_URL=https://app.thecookflow.com
+
+PASO 4: VERIFICAR SECCIONES DE LA LANDING
+
+Abrir src/Landing.tsx y verificar que existan:
+✅ Header (con logo + link "Entrar")
+✅ Hero (logo grande + título + 2 CTAs)
+✅ Iconos decorativos (tomate, zanahoria, pimiento, limón)
+✅ Sección "¿Cómo Funciona?" (3 cards)
+✅ Sección "Beneficios" (3 cards)
+✅ CTA Final
+✅ Footer
+
+PASO 5: BUILD DE PRODUCCIÓN
+
+Ejecutar:
+npm run build
+
+Debe completar sin errores.
+
+Verificar:
+ls -la dist/
+
+Debe contener index.html y assets/
+
+PASO 6: PREVIEW
+
+Ejecutar:
+npm run preview
+
+Visitar la URL.
+Verificar:
+✅ Fondo de pizarra
+✅ Logo de manzana
+✅ 3 secciones completas
+✅ Botones verdes
+✅ Footer completo
+✅ Links funcionan (aunque apunten a app no deployed aún)
+
+PASO 7: VERIFICAR SEO
+
+Abrir index.html
+
+Confirmar que tenga:
+<title>TheCookFlow - Planificación de Menús con IA</title>
+<meta name="description" content="...">
+<meta property="og:title" ...>
+<meta property="og:description" ...>
+
+PASO 8: VERIFICAR .gitignore
+
+Cat .gitignore
+
+Debe incluir:
+node_modules/
+dist/
+.env
+.env.local
+*.log
+.DS_Store
+
+PASO 9: COMMIT FINAL
+
+git status
+git add .
+git commit -m "chore: final verification before production deploy"
+git push origin main
+
+PASO 10: VERIFICAR EN GITHUB
+
+Ir a: https://github.com/RUPERDFN/tcf-landing
+
+Confirmar último commit.
+
+RESULTADO FINAL:
+✅ Build exitoso
+✅ Preview muestra diseño completo
+✅ SEO configurado
+✅ Pusheado a GitHub
+>>>>>>> Stashed changes
+✅ LISTO PARA DEPLOY

@@ -1,0 +1,106 @@
+Eres Replit Agent trabajando en tcf-landing.
+
+OBJETIVO: Landing page SEO optimizada con estética chalkboard.
+
+PASO 1: PACKAGE.JSON
+{
+  "name": "tcf-landing",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.11",
+    "tailwindcss": "^3.4.1"
+  }
+}
+
+PASO 2: INDEX.HTML
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TheCookFlow - Planificación de Menús con IA</title>
+  <meta name="description" content="Genera menús semanales personalizados con IA en 2 minutos. Lista de compra automática y ahorra hasta 40% en tiempo de planificación.">
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
+
+PASO 3: SRC/MAIN.TSX
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Landing from './Landing';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <Landing />
+  </React.StrictMode>
+);
+
+PASO 4: SRC/LANDING.TSX
+export default function Landing() {
+  return (
+    <div className="min-h-screen bg-chalkboard-dark text-chalk-white">
+      <header className="py-6 px-4 border-b border-chalkboard-light">
+        <h1 className="text-4xl font-chalk text-center">TheCookFlow</h1>
+      </header>
+      
+      <main className="max-w-4xl mx-auto px-4 py-16">
+        <section className="text-center mb-16">
+          <h2 className="text-6xl font-chalk mb-6">Tu chef personal con IA</h2>
+          <p className="text-2xl text-chalk-cream mb-8">
+            Menús semanales + lista de compra en 2 minutos
+          </p>
+          <div className="flex gap-4 justify-center">
+            <a href={import.meta.env.VITE_APP_URL} className="btn-primary">
+              Empezar Gratis
+            </a>
+          </div>
+        </section>
+        
+        <section className="mb-16">
+          <h3 className="text-4xl font-chalk text-center mb-12">¿Cómo funciona?</h3>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="card-chalk text-center">
+              <div className="text-5xl mb-4">1️⃣</div>
+              <h4 className="text-2xl font-chalk mb-2">Responde 8 preguntas</h4>
+              <p>Presupuesto, alergias, gustos...</p>
+            </div>
+            <div className="card-chalk text-center">
+              <div className="text-5xl mb-4">2️⃣</div>
+              <h4 className="text-2xl font-chalk mb-2">IA genera tu menú</h4>
+              <p>Recetas personalizadas para toda la semana</p>
+            </div>
+            <div className="card-chalk text-center">
+              <div className="text-5xl mb-4">3️⃣</div>
+              <h4 className="text-2xl font-chalk mb-2">Descarga lista</h4>
+              <p>Compra automática optimizada</p>
+            </div>
+          </div>
+        </section>
+      </main>
+      
+      <footer className="border-t border-chalkboard-light py-8 text-center">
+        <p className="text-chalk-cream">© 2025 TheCookFlow. Todos los derechos reservados.</p>
+      </footer>
+    </div>
+  );
+}
+
+PASO 5: Usar mismo index.css y tailwind.config.js que webapp
+
+COMMIT:
+git add .
+git commit -m "feat: landing page v1.0.0"
+git push
